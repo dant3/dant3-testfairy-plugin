@@ -1,0 +1,6 @@
+<!--
+  This view is used to render the installed plugins page.
+-->
+<div>
+  This plugin will upload .apk file(s) to <a href="http://testfairy.com">testfairy.com</a> for distribution.
+</div>

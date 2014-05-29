@@ -8,12 +8,10 @@ import java.util.concurrent.TimeUnit
 import org.specs2.matcher.ThrownExpectations
 import testfairy.TestFairy.Response
 import scala.util.Try
-import org.apache.http.HttpHost
-import org.apache.http.impl.conn.DefaultProxyRoutePlanner
 import java.net.URI
 import org.mockserver.integration.ClientAndServer.startClientAndServer
 
-class TestFairyUploaderSpec extends Specification with ThrownExpectations with AfterAll {
+class TestFairyUploaderSpec extends Specification with AfterAll with ThrownExpectations {
     val mockServer = startClientAndServer(8080)
 
     "Test fairy uploader" should {

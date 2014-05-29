@@ -1,6 +1,6 @@
 package testfairy
 
-import org.specs2.Specification
+import org.specs2.mutable.Specification
 import org.specs2.specification.{Step, Fragments}
 
 trait AfterAll extends Specification {

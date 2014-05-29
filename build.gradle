@@ -20,7 +20,7 @@ apply plugin: 'scala'
 
 groupId = "org.jenkins-ci.plugins"
 version = "0.0.1-SNAPSHOT"
-description = "Testfairy plugin"
+description = "TestFairy plugin"
 sourceCompatibility = 1.6
 defaultTasks 'clean', 'jpi'
 def scalaVersionMajor = '2.10'
@@ -45,6 +45,10 @@ jenkinsPlugin {
 }
 
 compileScala {
+    scalaCompileOptions.additionalParameters = ['-Yresolve-term-conflict:object']
+}
+
+compileTestScala {
     scalaCompileOptions.additionalParameters = ['-Yresolve-term-conflict:object']
 }
 

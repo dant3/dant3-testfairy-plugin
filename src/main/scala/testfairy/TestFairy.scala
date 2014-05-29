@@ -51,7 +51,7 @@ object TestFairy {
                        videoQuality: Option[VideoQuality] = None,
                        videoRate: Option[Double] = None,
                        watermark: Option[Boolean] = None,
-                       comment: Option[String] = None)
+                       comment: Option[String] = None) extends Serializable
 
     case class Response(appName: String, appVersion: String, fileSize: Long, buildUrl: String,
                         inviteUrl: String, instrumentedApkUrl: String, iconUrl: String)
@@ -73,5 +73,7 @@ object TestFairy {
         }
     }
 
-    case class UploadError(code: Int, message: String) extends Exception
+    case class UploadError(code: Int, message: String) extends Exception {
+        override def toString = s"TestFairy upload error - code: $code, message: $message"
+    }
 }

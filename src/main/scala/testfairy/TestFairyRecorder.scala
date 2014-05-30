@@ -9,6 +9,7 @@ import collection.JavaConversions._
 import scala.collection.JavaConversions
 import org.kohsuke.stapler.DataBoundConstructor
 import hudson.scm.ChangeLogSet
+import scala.util.Success
 
 class TestFairyRecorder @DataBoundConstructor() (apiKeyName: String,
                                                  apkFilesPath: String,
@@ -17,7 +18,6 @@ class TestFairyRecorder @DataBoundConstructor() (apiKeyName: String,
                                                  appendChangeLog: Boolean,
                                                  testers: String,
                                                  debug: Boolean) extends Recorder {
-
     def getApiKeyName:String = apiKeyName
     def getApkFilesPath:String = apkFilesPath
     def getProguardMappingPath:String = proguardMappingPath
@@ -69,7 +69,7 @@ class TestFairyRecorder @DataBoundConstructor() (apiKeyName: String,
 
         apiKey match {
             case Some(key) => TestFairySlaveExecutive.Parameters(key, apkFilesPath, comment)
-            case _ => throw new MisconfiguredJobException(Messages.TestFairyRecorder_ApiKeyNotFound(apiKeyName))
+            case _ => throw new MisconfiguredJobException(Messages._TestFairyRecorder_ApiKeyNotFound(apiKeyName))
         }
     }
 
@@ -89,7 +89,8 @@ class TestFairyRecorder @DataBoundConstructor() (apiKeyName: String,
     }
 
     private def createBuildCommentFromChangeLog(changeSet: ChangeLogSet[_]):String = {
-        val changeLogLines = 1 to changeSet.size zip changeSet map {
+        val lineNumbers = 1 to changeSet.size
+        val changeLogLines = lineNumbers zip changeSet map {
             case (lineNumber: Int, change: String) => s"$lineNumber. $change"
         }
         val changeLog = createChangeLogTitle(changeSet) +: changeLogLines
@@ -127,7 +128,7 @@ class TestFairyRecorder @DataBoundConstructor() (apiKeyName: String,
     }
 
     private def populateTestFairyApplicationLink(build: AbstractBuild[_, _],
-                                                 listener: BuildListener, uploadResult: TestFairy.Response) = {
+                                                 listener: BuildListener, uploadResult: Seq[TestFairy.Response]) = {
 
     }
 }
